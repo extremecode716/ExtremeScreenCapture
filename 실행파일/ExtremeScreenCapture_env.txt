@@ -1,0 +1,4 @@
+MultiMonitorIndex=0
+SaveFolderDir=C:\Users\pc\Desktop\ZoomImg\
+BaseFileName=302room
+FileExt=jpg
