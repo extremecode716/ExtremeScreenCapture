@@ -44,7 +44,7 @@ bool CFilePath::init()
 
 bool CFilePath::SetSaveImgFullDir( int _iMecroNum, const wchar_t * _szTime )
 {
-	swprintf( m_szSaveImgFullDir, L"%s%s_%d_%s.%s", GetRootDir(), GetBaseFileName(), _iMecroNum, _szTime, GetFileExt());
+	swprintf( m_szSaveImgFullDir, L"%s%s_%s_%d.%s", GetRootDir(), GetBaseFileName(), _szTime, _iMecroNum, GetFileExt());
 
 	return true;
 }
