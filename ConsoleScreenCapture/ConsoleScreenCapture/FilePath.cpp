@@ -1,4 +1,6 @@
 #include "FilePath.h"
+#include <iostream>
+using namespace std;
 
 bool CFilePath::SetCurrentEXEDir()
 {
@@ -36,7 +38,8 @@ bool CFilePath::init()
 	SetCurrentEXEDir();
 	SetEnvironmentDir();
 	SetBaseFileName( L"ExtremeScreenCapture_" );
-	SetFileExt( L"jpg" );
+	SetDefaultFileExt( L"jpg" );
+	SetFileExt( GetDefaultFileExt());
 	SetSoundDir();
 
 	return true;
@@ -66,8 +69,11 @@ bool CFilePath::SetRootDir( const wchar_t* _szRootDir )
 	}
 	else {
 		if ( ::CreateDirectoryW( m_szRootDir, NULL ) ) {
-			return false;
+			return true;
 		}
+
+		wcout << "폴더에 접근 할 수 없습니다. ExtremeScreenCapture_env.txt의 SaveFolderDir 경로를 다시 설정해 주세요." << endl;
+		return false;
 	}
 	return true;
 }
@@ -91,8 +97,11 @@ bool CFilePath::SetRelativeDir( const wchar_t* _szRelativeDir )
 	}
 	else {
 		if ( ::CreateDirectoryW( m_szRootDir, NULL ) ) {
-			return false;
+			return true;
 		}
+
+		wcout << "폴더에 접근 할 수 없습니다. ExtremeScreenCapture_env.txt의 SaveFolderDir 경로를 다시 설정해 주세요." << endl;
+		return false;
 	}
 	return true;
 }
@@ -129,6 +138,14 @@ bool CFilePath::SetFileExt( const wchar_t* _szFileExt )
 	return true;
 }
 
+bool CFilePath::SetDefaultFileExt( const wchar_t * _szFileExt )
+{
+	int iLen = wcslen( _szFileExt );
+	wmemcpy( m_szDefaultFileExt, _szFileExt, iLen );
+	m_szDefaultFileExt[iLen] = L'\0';
+	return true;
+}
+
 CFilePath::CFilePath()
 	:
 	m_szSaveImgFullDir{},
@@ -140,6 +157,7 @@ CFilePath::CFilePath()
 	m_szNumberToAddToBaseFileName{},
 	m_szTimeToAddToBaseFileName{},
 	m_szFileExt{},
+	m_szDefaultFileExt{},
 	m_szSound1Dir{},
 	m_szSound2Dir{}
 {

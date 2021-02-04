@@ -18,7 +18,7 @@ bool CEnvironmentV::ReadFile()
 		fputws( L"MultiMonitorIndex=0", pFile );
 		fputws( L"\nSaveFolderDir=C:\\Zoom302\\", pFile );
 		fputws( L"\nBaseFileName=302room", pFile );
-		fputws( L"\nFileExt=jpg", pFile );
+		fputws( L"\nFileExt=jpg", pFile ); // GetDefaultFileExt()
 		//fputws( L"\nHookKey:Ctrl+1,Ctrl+2", pFile );
 		fclose( pFile );
 
@@ -34,6 +34,10 @@ bool CEnvironmentV::ReadFile()
 	wchar_t* pValue = wcstok( szBuffer, L"=" );
 	pValue = wcstok( NULL, L"\n" );
 	m_iCaptureMonitorIndex = _wtoi( pValue );
+	if ( m_iCaptureMonitorIndex >= m_pMonitor->GetMonitorCount() ) {
+		wcout << "monitor index over error -> reset index: 0" << endl;
+		m_iCaptureMonitorIndex = 0;
+	}
 
 	fgetws( szBuffer, sizeof( szBuffer ), pFile );
 	pValue = wcstok( szBuffer, L"=" );

@@ -17,6 +17,7 @@ private:
 	wchar_t m_szNumberToAddToBaseFileName[SZ_DEFAULT_SIZE]; // 기본 파일 이름에 추가할 숫자
 	wchar_t m_szTimeToAddToBaseFileName[SZ_DEFAULT_SIZE]; // 기본 파일 이름에 추가할 시간
 	wchar_t m_szFileExt[SZ_EXT_SIZE];		// 파일 확장자
+	wchar_t m_szDefaultFileExt[SZ_EXT_SIZE];  // 기본 파일 확장자
 
 	wchar_t m_szSound1Dir[SZ_MAX_SIZE];
 	wchar_t m_szSound2Dir[SZ_MAX_SIZE];
@@ -36,6 +37,7 @@ public:
 	bool SetNumberToAddToBaseFileName( const wchar_t* _szNumberToAddToBaseFileName );
 	bool SetTimeToAddToBaseFileName( const wchar_t* _szTimeToAddToBaseFileName );
 	bool SetFileExt( const wchar_t* _szFileExt );
+	bool SetDefaultFileExt( const wchar_t* _szFileExt );
 
 	wchar_t* GetSaveImgFullDir() { return m_szSaveImgFullDir; }
 	wchar_t* GetRootDir() { return m_szRootDir; }
@@ -43,6 +45,7 @@ public:
 	wchar_t* GetEnvironmentDir() { return m_szEnvironmentDir; }
 	wchar_t* GetBaseFileName() { return m_szBaseFileName; }
 	wchar_t* GetFileExt() { return m_szFileExt; }
+	wchar_t* GetDefaultFileExt() { return m_szDefaultFileExt; }
 
 	wchar_t* GetSound1Dir() { return m_szSound1Dir; }
 	wchar_t* GetSound2Dir() { return m_szSound2Dir; }
