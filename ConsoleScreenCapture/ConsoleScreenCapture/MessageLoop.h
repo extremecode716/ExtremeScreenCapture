@@ -5,6 +5,7 @@
 #pragma comment(lib,"winmm.lib")
 using namespace std;
 
+#include "define.h"
 #include "EnvironmentV.h"
 #include "ScreenCapture.h"
 #include "LocalTime.h"
@@ -71,18 +72,38 @@ LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
 				bMecroPressed2 = true;
 			}
 
-			if ( bMecroPressed1 && !bPressTermTime)
+			if ( bMecroPressed1 && !bPressTermTime )
 			{
 				CEnvironmentV::GetInst()->GetFilePath()->SetSaveImgFullDir( 1, CLocalTime::GetInst()->GetMonAndDay_Hour() );
-				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()], CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() );
-				wcout << L"사진 촬영1-경로: "<< CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() << endl;
-				bPressTermTime = true; 
+#ifdef TMP_SCALE_FACTOR
+				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()],
+					CEnvironmentV::GetInst()->GetTmpScaleFactor(),
+					CEnvironmentV::GetInst()->GetTmpScaleFactor(),
+					CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() );
+#else		
+				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()],
+					CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pDpiAndScale[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()].dXScale,
+					CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pDpiAndScale[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()].dYScale,
+					CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() );
+#endif
+				wcout << L"사진 촬영1-경로: " << CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() << endl;
+				bPressTermTime = true;
 
 				PlaySound( CEnvironmentV::GetInst()->GetFilePath()->GetSound1Dir(), 0, SND_FILENAME | SND_ASYNC ); //일반 재생
 			}
 			else if ( bMecroPressed2 && !bPressTermTime ) {
 				CEnvironmentV::GetInst()->GetFilePath()->SetSaveImgFullDir( 2, CLocalTime::GetInst()->GetMonAndDay_Hour() );
-				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()], CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() );
+#ifdef TMP_SCALE_FACTOR
+				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()],
+					CEnvironmentV::GetInst()->GetTmpScaleFactor(),
+					CEnvironmentV::GetInst()->GetTmpScaleFactor(),
+					CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() );
+#else		
+				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()],
+					CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pDpiAndScale[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()].dXScale,
+					CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pDpiAndScale[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()].dYScale,
+					CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() );
+#endif
 				wcout << L"사진 촬영2-경로: " << CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() << endl;
 				bPressTermTime = true;
 
@@ -150,7 +171,7 @@ int mainMessageLoop() {
 				if ( fPressTermAccTime > fPressTermMaxAccTime )
 				{
 					bPressTermTime = false;
-					fPressTermAccTime = 0.f;	
+					fPressTermAccTime = 0.f;
 				}
 			}
 

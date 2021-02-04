@@ -67,10 +67,13 @@ BOOL CScreenCapture::SaveHBITMAPToFile( HBITMAP hBitmap, LPCWSTR lpszFileName )
 	return 0;
 }
 
-void CScreenCapture::screenshot( MONITORINFOEXW* _pMonitorInfo, LPCWSTR filepath )
+void CScreenCapture::screenshot( MONITORINFOEXW* _pMonitorInfo, double _dScaleX, double _dScaleY, LPCWSTR filepath )
 {
-	int width = (labs( _pMonitorInfo->rcMonitor.right ) > labs( _pMonitorInfo->rcMonitor.left )) ? (labs( _pMonitorInfo->rcMonitor.right ) - labs( _pMonitorInfo->rcMonitor.left )) : (labs( _pMonitorInfo->rcMonitor.left) - labs( _pMonitorInfo->rcMonitor.right) );
+	int width = (labs( _pMonitorInfo->rcMonitor.right ) > labs( _pMonitorInfo->rcMonitor.left )) ? (labs( _pMonitorInfo->rcMonitor.right ) - labs( _pMonitorInfo->rcMonitor.left )) : (labs( _pMonitorInfo->rcMonitor.left ) - labs( _pMonitorInfo->rcMonitor.right ));
 	int height = (labs( _pMonitorInfo->rcMonitor.bottom ) > labs( _pMonitorInfo->rcMonitor.top )) ? (labs( _pMonitorInfo->rcMonitor.bottom ) - labs( _pMonitorInfo->rcMonitor.top )) : (labs( _pMonitorInfo->rcMonitor.top ) - labs( _pMonitorInfo->rcMonitor.bottom ));
+	width *= _dScaleX;
+	height *= _dScaleY;
+
 	HDC hScreen = CreateDC( NULL, _pMonitorInfo->szDevice, NULL, NULL );
 	HDC hDC = CreateCompatibleDC( hScreen );
 	HBITMAP hBitmap = CreateCompatibleBitmap( hScreen, width, height );

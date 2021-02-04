@@ -43,7 +43,7 @@ DWORD CEnvironmentV::GetWCHARConvertToASCII( const wchar_t * _szValue )
 	}
 	else {
 
-		if ( 0 == _wcsicmp( _szValue, L"CTRL" )  ) {
+		if ( 0 == _wcsicmp( _szValue, L"CTRL" ) ) {
 			return VK_LCONTROL;
 		}
 		else if ( 0 == _wcsicmp( _szValue, L"LCTRL" ) ) {
@@ -196,6 +196,11 @@ bool CEnvironmentV::ReadFile()
 		fputws( L"\nBaseFileName=302room", pFile );
 		fputws( L"\nFileExt=jpg", pFile ); // GetDefaultFileExt()
 		fputws( L"\nMacro2Key=LCTRL+1,LCTRL+2", pFile );
+#ifdef TMP_SCALE_FACTOR
+		fputws( L"\nScaleFactor=1.0", pFile ); // Tmp
+#else
+
+#endif
 		fclose( pFile );
 
 		m_iCaptureMonitorIndex = 0;
@@ -238,6 +243,20 @@ bool CEnvironmentV::ReadFile()
 	wchar_t* pKey2Value = pValue;
 	SetMacroKey( pKey1Value, pKey2Value );
 
+
+#ifdef TMP_SCALE_FACTOR
+	// 임시 ScaleFactor 작동 안함.
+	fgetws( szBuffer, sizeof( szBuffer ), pFile );
+	pValue = wcstok( szBuffer, L"=" );
+	pValue = wcstok( NULL, L"\n" );
+	double dTmp = wcstod( pValue, NULL );
+	if ( dTmp < 0.1 ) // 임시 예외처리
+		dTmp = 1.0;
+	SetTmpScaleFactor( dTmp );
+#else		
+
+#endif
+	
 	fclose( pFile );
 
 	return true;
@@ -254,9 +273,10 @@ CEnvironmentV::CEnvironmentV()
 	m_pMonitor( CMonitor::GetInst() ),
 	m_iCaptureMonitorIndex( 0 ),
 	m_ulMacroKey1{ 162, 49 }, // Ctrl + 1
-	m_ulMacroKey2{ 162, 50 }  // Ctrl + 2
+	m_ulMacroKey2{ 162, 50 },  // Ctrl + 2
+	m_dTmpScaleFactor( 0.0 )
 {
-	m_pMonitor->Run();
+	m_pMonitor->Setting();
 }
 
 CEnvironmentV::~CEnvironmentV()

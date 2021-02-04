@@ -3,3 +3,4 @@ SaveFolderDir=C:\Zoom302\
 BaseFileName=302room
 FileExt=jpg
 Macro2Key=LCTRL+1,LCTRL+2
+ScaleFactor=1.0

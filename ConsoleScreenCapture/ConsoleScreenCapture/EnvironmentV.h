@@ -12,6 +12,14 @@ private:
 	CMonitor* m_pMonitor;
 	int m_iCaptureMonitorIndex; // 캡쳐할 모니터 index!
 
+#ifdef TMP_SCALE_FACTOR
+public:
+	double m_dTmpScaleFactor;	// 다중 모니터 ScaleFactor를 제대로 가져오지 못해서, 임시로 File Read 방식으로 설정...(dpi,scalefactor...)
+	void SetTmpScaleFactor( double _dScale ) { m_dTmpScaleFactor = _dScale; } // Tmp
+	double GetTmpScaleFactor() { return m_dTmpScaleFactor; } // Tmp
+#else
+#endif
+
 public:
 	// 매크로 키 설정
 	DWORD m_ulMacroKey1[2];
