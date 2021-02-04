@@ -11,10 +11,10 @@ bool CEnvironmentV::ReadFile()
 {
 	FILE* pFile = NULL;
 	// 환경 설정 파일 read
-	_wfopen_s( &pFile, m_pFilePath->GetEnvironmentDir(), L"r" );
+	_wfopen_s( &pFile, m_pFilePath->GetEnvironmentDir(), L"r,ccs=UTF-8");
 
 	if ( NULL == pFile ) {
-		_wfopen_s( &pFile, m_pFilePath->GetEnvironmentDir(), L"a" );
+		_wfopen_s( &pFile, m_pFilePath->GetEnvironmentDir(), L"a,ccs=UTF-8" );
 		fputws( L"MultiMonitorIndex=0", pFile );
 		fputws( L"\nSaveFolderDir=C:\\Zoom302\\", pFile );
 		fputws( L"\nBaseFileName=302room", pFile );
