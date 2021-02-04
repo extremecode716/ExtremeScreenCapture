@@ -75,7 +75,7 @@ LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
 			{
 				CEnvironmentV::GetInst()->GetFilePath()->SetSaveImgFullDir( 1, CLocalTime::GetInst()->GetMonAndDay_Hour() );
 				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()], CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() );
-				wcout << "사진 촬영1-경로: "<< CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() << endl;
+				wcout << L"사진 촬영1-경로: "<< CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() << endl;
 				bPressTermTime = true; 
 
 				PlaySound( CEnvironmentV::GetInst()->GetFilePath()->GetSound1Dir(), 0, SND_FILENAME | SND_ASYNC ); //일반 재생
@@ -83,7 +83,7 @@ LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
 			else if ( bMecroPressed2 && !bPressTermTime ) {
 				CEnvironmentV::GetInst()->GetFilePath()->SetSaveImgFullDir( 2, CLocalTime::GetInst()->GetMonAndDay_Hour() );
 				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()], CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() );
-				wcout << "사진 촬영2-경로: " << CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() << endl;
+				wcout << L"사진 촬영2-경로: " << CEnvironmentV::GetInst()->GetFilePath()->GetSaveImgFullDir() << endl;
 				bPressTermTime = true;
 
 				PlaySound( CEnvironmentV::GetInst()->GetFilePath()->GetSound2Dir(), 0, SND_FILENAME | SND_ASYNC ); //일반 재생

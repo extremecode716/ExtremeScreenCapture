@@ -10,8 +10,8 @@ void CEnvironmentV::SetConsolePosition( int _x, int _y, int _cx, int _cy )
 bool CEnvironmentV::SetMacroKey( wchar_t * _szMacroKey1, wchar_t * _szMacroKey2 )
 {
 	if ( wcsstr( _szMacroKey1, L"+" ) == NULL || wcsstr( _szMacroKey2, L"+" ) == NULL ) {
-		wcout << "Error : ExtremeScreenCapture_env.txt 의 Macro2Key 설정에서 오류가 났습니다.";
-		wcout << "Macro2Key의 값은 2개의 키를 설정해야 하며, \",\"로 분리되어야 하며, 키 조합은 + 조합으로 이루어져야 합니다.(+:1번만 사용)" << endl;
+		wcout << L"Error : ExtremeScreenCapture_env.txt 의 Macro2Key 설정에서 오류가 났습니다.";
+		wcout << L"Macro2Key의 값은 2개의 키를 설정해야 하며, \",\"로 분리되어야 하며, 키 조합은 + 조합으로 이루어져야 합니다.(+:1번만 사용)" << endl;
 	}
 	else
 	{
@@ -211,7 +211,7 @@ bool CEnvironmentV::ReadFile()
 	pValue = wcstok( NULL, L"\n" );
 	m_iCaptureMonitorIndex = _wtoi( pValue );
 	if ( m_iCaptureMonitorIndex >= m_pMonitor->GetMonitorCount() ) {
-		wcout << "monitor index over error -> reset index: 0" << endl;
+		wcout << L"monitor index over error -> reset index: 0" << endl;
 		m_iCaptureMonitorIndex = 0;
 	}
 

@@ -19,7 +19,7 @@ BOOL CScreenCapture::SaveHBITMAPToFile( HBITMAP hBitmap, LPCWSTR lpszFileName )
 	stream.open( lpszFileName, ios::binary );
 	if ( !stream.is_open() )
 	{
-		cout << "File open error!" << endl;
+		wcout << L"File open error!" << endl;
 		return FALSE;
 	}
 	BITMAP bitmap;

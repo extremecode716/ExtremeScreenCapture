@@ -72,7 +72,7 @@ bool CFilePath::SetRootDir( const wchar_t* _szRootDir )
 			return true;
 		}
 
-		wcout << "폴더에 접근 할 수 없습니다. ExtremeScreenCapture_env.txt의 SaveFolderDir 경로를 다시 설정해 주세요." << endl;
+		wcout << L"폴더에 접근 할 수 없습니다. ExtremeScreenCapture_env.txt의 SaveFolderDir 경로를 다시 설정해 주세요." << endl;
 		return false;
 	}
 	return true;
@@ -100,7 +100,7 @@ bool CFilePath::SetRelativeDir( const wchar_t* _szRelativeDir )
 			return true;
 		}
 
-		wcout << "폴더에 접근 할 수 없습니다. ExtremeScreenCapture_env.txt의 SaveFolderDir 경로를 다시 설정해 주세요." << endl;
+		wcout << L"폴더에 접근 할 수 없습니다. ExtremeScreenCapture_env.txt의 SaveFolderDir 경로를 다시 설정해 주세요." << endl;
 		return false;
 	}
 	return true;
