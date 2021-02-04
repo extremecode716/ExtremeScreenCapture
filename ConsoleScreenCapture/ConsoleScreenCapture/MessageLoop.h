@@ -43,30 +43,30 @@ bool IsPressMacroKey() {
 LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
 	PKBDLLHOOKSTRUCT pKey = (PKBDLLHOOKSTRUCT)lParam;
 	if ( wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN ) {
-		if ( nCode >= 0 && (int)wParam == 256 ) {
-			/*	cout << pKey->vkCode << " ";*/
+		if ( nCode >= 0 ) {
+			/*cout << pKey->vkCode << " ";*/
 			bool bMecroPressed1 = false;
 			bool bMecroPressed2 = false;
 
-			if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey1[0] ) {
-				pressMacroKey[0] = CEnvironmentV::GetInst()->m_ulMecroKey1[0];
+			if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMacroKey1[0] ) {
+				pressMacroKey[0] = CEnvironmentV::GetInst()->m_ulMacroKey1[0];
 			}
-			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey1[1] ) {
-				pressMacroKey[1] = CEnvironmentV::GetInst()->m_ulMecroKey1[1];
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMacroKey1[1] ) {
+				pressMacroKey[1] = CEnvironmentV::GetInst()->m_ulMacroKey1[1];
 			}
-			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey2[0] )
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMacroKey2[0] )
 			{
-				pressMacroKey[0] = CEnvironmentV::GetInst()->m_ulMecroKey2[0];
+				pressMacroKey[0] = CEnvironmentV::GetInst()->m_ulMacroKey2[0];
 			}
-			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey2[1] )
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMacroKey2[1] )
 			{
-				pressMacroKey[1] = CEnvironmentV::GetInst()->m_ulMecroKey2[1];
+				pressMacroKey[1] = CEnvironmentV::GetInst()->m_ulMacroKey2[1];
 			}
 
-			if ( pressMacroKey[0] == CEnvironmentV::GetInst()->m_ulMecroKey1[0] && pressMacroKey[1] == CEnvironmentV::GetInst()->m_ulMecroKey1[1] ) {
+			if ( pressMacroKey[0] == CEnvironmentV::GetInst()->m_ulMacroKey1[0] && pressMacroKey[1] == CEnvironmentV::GetInst()->m_ulMacroKey1[1] ) {
 				bMecroPressed1 = true;
 			}
-			else if ( pressMacroKey[0] == CEnvironmentV::GetInst()->m_ulMecroKey2[0] && pressMacroKey[1] == CEnvironmentV::GetInst()->m_ulMecroKey2[1] )
+			else if ( pressMacroKey[0] == CEnvironmentV::GetInst()->m_ulMacroKey2[0] && pressMacroKey[1] == CEnvironmentV::GetInst()->m_ulMacroKey2[1] )
 			{
 				bMecroPressed2 = true;
 			}
@@ -92,18 +92,18 @@ LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
 	}
 	else if ( wParam == WM_KEYUP || wParam == WM_SYSKEYUP )
 	{
-		if ( nCode >= 0 && (int)wParam == 257 ) {
-			if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey1[0] ) {
+		if ( nCode >= 0 ) {
+			if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMacroKey1[0] ) {
 				pressMacroKey[0] = MACRO_MAGIC_NUM1;
 			}
-			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey1[1] ) {
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMacroKey1[1] ) {
 				pressMacroKey[1] = MACRO_MAGIC_NUM2;
 			}
-			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey2[0] )
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMacroKey2[0] )
 			{
 				pressMacroKey[0] = MACRO_MAGIC_NUM1;
 			}
-			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey2[1] )
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMacroKey2[1] )
 			{
 				pressMacroKey[1] = MACRO_MAGIC_NUM2;
 			}

@@ -14,13 +14,15 @@ private:
 
 public:
 	// 매크로 키 설정
-	DWORD m_ulMecroKey1[2];
-	DWORD m_ulMecroKey2[2];
+	DWORD m_ulMacroKey1[2];
+	DWORD m_ulMacroKey2[2];
 public:
 	void SetConsolePosition( int _x, int _y, int _cx, int _cy );
 	CFilePath* GetFilePath() { return m_pFilePath; }
 	CMonitor* GetMonitor() { return m_pMonitor; }
 	int GetCaptureMonitorIndex() { return m_iCaptureMonitorIndex; }
+	bool SetMacroKey( wchar_t* _szMacroKey1, wchar_t* _szMacroKey2 );
+	DWORD GetWCHARConvertToASCII( const wchar_t* _szValue );
 
 	bool ReadFile();
 	bool SaveFile();
