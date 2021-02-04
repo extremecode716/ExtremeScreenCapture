@@ -10,6 +10,9 @@ using namespace std;
 #include "LocalTime.h"
 #include "DeltaTime.h"
 
+#define MACRO_MAGIC_NUM1 256
+#define MACRO_MAGIC_NUM2 257
+
 float fResetAccTime = 0.f;
 float fResetMaxAccTime = 1.f;
 
@@ -20,26 +23,26 @@ bool bPressTermTime = false;
 bool bMecroPressed1 = false;
 bool bMecroPressed2 = false;
 HHOOK hHook;
-DWORD pressMacroKey[2] = { 256, 257 }; //magic num
+
+DWORD pressMacroKey[2] = { MACRO_MAGIC_NUM1, MACRO_MAGIC_NUM2 }; //magic num
 void resetPressMacroKey() {
-	pressMacroKey[0] = 256;
-	pressMacroKey[1] = 257;
+	pressMacroKey[0] = MACRO_MAGIC_NUM1;
+	pressMacroKey[1] = MACRO_MAGIC_NUM2;
 }
 
 bool IsPressMacroKey() {
-	if ( pressMacroKey[0] != 256 ) {
+	if ( pressMacroKey[0] != MACRO_MAGIC_NUM1 ) {
 		return true;
 	}
-	if ( pressMacroKey[1] != 257 ) {
+	if ( pressMacroKey[1] != MACRO_MAGIC_NUM2 ) {
 		return true;
 	}
 	return false;
 }
 
 LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
+	PKBDLLHOOKSTRUCT pKey = (PKBDLLHOOKSTRUCT)lParam;
 	if ( wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN ) {
-		PKBDLLHOOKSTRUCT pKey = (PKBDLLHOOKSTRUCT)lParam;
-
 		if ( nCode >= 0 && (int)wParam == 256 ) {
 			/*	cout << pKey->vkCode << " ";*/
 			bool bMecroPressed1 = false;
@@ -87,6 +90,26 @@ LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
 			}
 		}
 	}
+	else if ( wParam == WM_KEYUP || wParam == WM_SYSKEYUP )
+	{
+		if ( nCode >= 0 && (int)wParam == 257 ) {
+			if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey1[0] ) {
+				pressMacroKey[0] = MACRO_MAGIC_NUM1;
+			}
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey1[1] ) {
+				pressMacroKey[1] = MACRO_MAGIC_NUM2;
+			}
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey2[0] )
+			{
+				pressMacroKey[0] = MACRO_MAGIC_NUM1;
+			}
+			else if ( pKey->vkCode == CEnvironmentV::GetInst()->m_ulMecroKey2[1] )
+			{
+				pressMacroKey[1] = MACRO_MAGIC_NUM2;
+			}
+		}
+	}
+
 	CallNextHookEx( hHook, nCode, wParam, lParam );
 	return 0;
 }
@@ -114,14 +137,13 @@ int mainMessageLoop() {
 		{
 			CDeltaTime::GetInst()->Update();
 
-			// hook 방식이라 pressMacroKey reset해줘야 함. 
-			if ( IsPressMacroKey() ) {
+			/*	if ( IsPressMacroKey() ) {
 				fResetAccTime += CDeltaTime::GetInst()->DeltaTime();
 				if ( fResetAccTime > fResetMaxAccTime ) {
 					resetPressMacroKey();
 					fResetAccTime = 0.f;
 				}
-			}
+			}*/
 
 			if ( bPressTermTime ) {
 				fPressTermAccTime += CDeltaTime::GetInst()->DeltaTime();
