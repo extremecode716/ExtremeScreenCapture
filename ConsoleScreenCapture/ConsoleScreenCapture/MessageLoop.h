@@ -74,7 +74,12 @@ LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
 
 			if ( bMecroPressed1 && !bPressTermTime )
 			{
+#ifdef UNLOCK_TIME_LIMIT
+				CEnvironmentV::GetInst()->GetFilePath()->SetSaveImgFullDir( 1, CLocalTime::GetInst()->GetDate() );
+#else
 				CEnvironmentV::GetInst()->GetFilePath()->SetSaveImgFullDir( 1, CLocalTime::GetInst()->GetMonAndDay_Hour() );
+#endif
+				
 #ifdef TMP_SCALE_FACTOR
 				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()],
 					CEnvironmentV::GetInst()->GetTmpScaleFactor(),
@@ -92,7 +97,12 @@ LRESULT CALLBACK KeyboardProc( int nCode, WPARAM wParam, LPARAM lParam ) {
 				PlaySound( CEnvironmentV::GetInst()->GetFilePath()->GetSound1Dir(), 0, SND_FILENAME | SND_ASYNC ); //일반 재생
 			}
 			else if ( bMecroPressed2 && !bPressTermTime ) {
+
+#ifdef UNLOCK_TIME_LIMIT
+				CEnvironmentV::GetInst()->GetFilePath()->SetSaveImgFullDir( 2, CLocalTime::GetInst()->GetDate() );
+#else
 				CEnvironmentV::GetInst()->GetFilePath()->SetSaveImgFullDir( 2, CLocalTime::GetInst()->GetMonAndDay_Hour() );
+#endif
 #ifdef TMP_SCALE_FACTOR
 				CScreenCapture::GetInst()->screenshot( &CEnvironmentV::GetInst()->GetMonitor()->GetMonitorData().pInfo[CEnvironmentV::GetInst()->GetCaptureMonitorIndex()],
 					CEnvironmentV::GetInst()->GetTmpScaleFactor(),

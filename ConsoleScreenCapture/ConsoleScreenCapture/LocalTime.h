@@ -20,10 +20,12 @@ class CLocalTime
 private:
 	LocalTime *m_pLocalTime;
 	wchar_t m_szMonAndDay_Hour[SZ_DEFAULT_SIZE];
+	wchar_t m_szDate[SZ_DEFAULT_SIZE];
 
 public:
 	LocalTime* GetLocalTime();
 	wchar_t* GetMonAndDay_Hour();
+	wchar_t* GetDate();
 
 	static CLocalTime* GetInst() {
 		static CLocalTime g_localTime;
