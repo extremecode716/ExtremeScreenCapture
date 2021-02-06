@@ -13,24 +13,24 @@ int CMonitor::GetMonitorCount()
 
 void CMonitor::DeleteMonitorData()
 {
-	if ( m_MonitorData.pInfo != nullptr )
-	{
-		free( m_MonitorData.pInfo );
-		m_MonitorData.pInfo = nullptr;
-	}
 	if ( m_MonitorData.pDpiAndScale != nullptr )
 	{
-		free( m_MonitorData.pDpiAndScale );
+		delete m_MonitorData.pDpiAndScale;
 		m_MonitorData.pDpiAndScale = nullptr;
+	}
+	if ( m_MonitorData.pInfo != nullptr )
+	{
+		delete m_MonitorData.pInfo;
+		m_MonitorData.pInfo = nullptr;
 	}
 	if ( m_MonitorData.pDSF != nullptr )
 	{
-		free( m_MonitorData.pDSF );
+		delete m_MonitorData.pDSF;
 		m_MonitorData.pDSF = nullptr;
 	}
 	if ( m_MonitorData.pHMonitor != nullptr )
 	{
-		free( m_MonitorData.pHMonitor );
+		delete m_MonitorData.pHMonitor;
 		m_MonitorData.pHMonitor = nullptr;
 	}
 }
@@ -95,11 +95,11 @@ bool CMonitor::Setting()
 {
 	m_iMonitors = GetSystemMetrics( SM_CMONITORS );
 	m_MonitorData.iCurrent = 0;
-	m_MonitorData.pInfo = (MONITORINFOEXW*)calloc( m_iMonitors, sizeof( MONITORINFOEXW ) );
-	m_MonitorData.pDpiAndScale = (DpiAndScale*)calloc( m_iMonitors, sizeof( DpiAndScale ) );
-	m_MonitorData.pDSF = (DEVICE_SCALE_FACTOR*)calloc( m_iMonitors, sizeof( DEVICE_SCALE_FACTOR ) );
-	m_MonitorData.pHMonitor = (HMONITOR*)calloc( m_iMonitors, sizeof( HMONITOR ) );
-	
+	m_MonitorData.pInfo = new MONITORINFOEXW[m_iMonitors];
+	m_MonitorData.pDpiAndScale = new DpiAndScale[m_iMonitors];
+	m_MonitorData.pDSF = new DEVICE_SCALE_FACTOR[m_iMonitors];
+	m_MonitorData.pHMonitor = new HMONITOR[m_iMonitors];
+
 	if ( !GetAllMonitorInfo( &m_MonitorData ) ) return false;
 
 #ifdef TMP_SCALE_FACTOR

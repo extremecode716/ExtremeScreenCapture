@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 	std::wcout.imbue( std::locale( "korean" ) );
-	wcout << L"작성자: 김동일" << endl;
+	wcout << L"작성자: ExtremeCode" << endl;
 	wcout << L"이메일: extremecode716@gmail.com" << endl;
 	wcout << L"촬영 단축키(기본): LCTRL + 1 / LCTRL + 2" << endl;
 	wcout << L"환경 설정 파일: ExtremeScreenCapture_env.txt " << endl;

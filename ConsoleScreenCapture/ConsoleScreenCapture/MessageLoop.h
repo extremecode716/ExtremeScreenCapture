@@ -24,7 +24,7 @@ bool bPressTermTime = false;
 bool bMecroPressed1 = false;
 bool bMecroPressed2 = false;
 HHOOK hHook;
-
+// 키 처리도 클래스로 전체적으로 관리해야하는데 귀찮으니~pass
 DWORD pressMacroKey[2] = { MACRO_MAGIC_NUM1, MACRO_MAGIC_NUM2 }; //magic num
 void resetPressMacroKey() {
 	pressMacroKey[0] = MACRO_MAGIC_NUM1;
@@ -154,7 +154,21 @@ void UnHook() {
 	UnhookWindowsHookEx( hHook );
 }
 
+BOOL ConsoleCtrlHandler( DWORD fdwCtrlType )
+{
+	switch ( fdwCtrlType )
+	{
+	case CTRL_CLOSE_EVENT:
+	case CTRL_SHUTDOWN_EVENT:
+	default:
+		CMonitor::GetInst()->DeleteMonitorData();
+		UnHook();
+		return FALSE;
+	}
+}
+
 int mainMessageLoop() {
+	SetConsoleCtrlHandler( (PHANDLER_ROUTINE)ConsoleCtrlHandler, TRUE );
 	SetHook();
 	MSG msg;
 	CDeltaTime::GetInst()->Init();
@@ -184,8 +198,7 @@ int mainMessageLoop() {
 					fPressTermAccTime = 0.f;
 				}
 			}
-
-			Sleep( 10 );
+			Sleep( 20 );
 		}
 	}
 	UnHook();
