@@ -4,7 +4,7 @@
 Zoom 화면 캡쳐를 쉽게 하기 위해 제작한 프로그램-자동 저장   
 
 ### 사용법 요약
-실행파일 폴더(다운로드) -> ExtremeScreenCapture_env.txt (설정) -> ConsoleScreenCapture.exe (실행) -> 단축키 입력 -> 스크린샷 자동 저장   
+[**다운로드**](https://github.com/extremecode716/ExtremeScreenCapture/releases/download/1.0/ExtremeScreenCapture_release.7z)(압축풀기) -> ExtremeScreenCapture_env.txt (설정) -> ConsoleScreenCapture.exe (실행) -> 단축키 입력 -> 스크린샷 자동 저장   
 
 ***   
 
